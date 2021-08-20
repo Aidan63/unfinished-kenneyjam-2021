@@ -1,0 +1,18 @@
+{
+    "assets" : [
+        { "id" : "shd_basic", "path" : "shaders/basic.glsl" },
+
+        { "id" : "img_background", "path" : "images/background.png" },
+        { "id" : "img_ship0", "path" : "images/ship0.png" },
+        { "id" : "img_ship1", "path" : "images/ship1.png" },
+        { "id" : "img_smoke", "path" : "images/smoke.png" },
+        { "id" : "img_bullet1", "path" : "images/bullet1.png" },
+
+        { "id" : "ui_bar_outline", "path" : "images/ui_bar_outline.png" },
+        { "id" : "ui_bar", "path" : "images/ui_bar.png" },
+        { "id" : "ui_panel", "path" : "images/ui_panel.png" }
+    ],
+    "parcels" : [
+        { "name" : "preload", "assets" : [ "shd_basic", "img_ship0", "img_ship1", "img_smoke", "img_background", "ui_bar_outline", "ui_bar", "ui_panel", "img_bullet1" ] }
+    ]
+}

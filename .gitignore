@@ -1,0 +1,5 @@
+.flurry
+.vscode
+bin
+node_modules
+igloo.ps1

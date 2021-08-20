@@ -1,0 +1,13 @@
+# @run: haxelib run-dir hxcpp D:/projects/flurry/flurry
+-D format=3.5.0
+-cp D:/projects/flurry/flurry/src/lib
+--lib hxrx
+--lib format
+--lib haxe-concurrent
+--lib linc_directx
+--lib linc_imgui
+--lib haxe-files
+--lib linc_stb
+--lib linc_sdl
+--lib safety
+--lib vector-math
