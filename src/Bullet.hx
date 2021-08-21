@@ -26,8 +26,8 @@ class Bullet extends Actor
 
     public function onUpdate(_dt : Float)
     {
-        pos.x += vel.x * _dt;
-        pos.y += vel.y * _dt;
+        pos.x += vel.x;
+        pos.y += vel.y;
 
         timeToDeath -= _dt;
 

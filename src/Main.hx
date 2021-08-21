@@ -32,8 +32,6 @@ class Main extends Flurry
 
     var angle : Float;
 
-    var player : Player;
-
     var scene : Scene;
 
     override function onConfig(_config : FlurryConfig) : FlurryConfig
@@ -60,11 +58,17 @@ class Main extends Flurry
         hud      = new Camera2D(vec2(0, 0), vec2(display.width, display.height), vec4(0, 0, display.width, display.height));
         scene    = new Scene();
 
-        scene.add(player = new Player(camera));
+        scene.add(Game.player = new Player(camera));
         
         for (_ in 0...10)
         {
-            scene.add(new Enemy(Math.random() * 360));
+            final x     = Math.random() * Game.room.x;
+            final y     = Math.random() * Game.room.y;
+            final actor = new Enemy(vec2(x, y), Math.random() * 360);
+
+            scene.add(actor);
+
+            Game.enemies.push(actor);
         }
     }
 
@@ -80,15 +84,13 @@ class Main extends Flurry
     override function onRender(_ctx : GraphicsContext)
     {
         _ctx.usePipeline(pipeline);
-
         _ctx.useCamera(camera);
-
         _ctx.drawFrameTiled(cast resources.get(Preload.img_background), vec2(0, 0), vec2(display.width, display.height));
 
         scene.onRender(_ctx);
 
         _ctx.useCamera(hud);
 
-        player.onRenderHud(_ctx);
+        Game.player.onRenderHud(_ctx);
     }
 }

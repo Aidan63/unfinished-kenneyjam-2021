@@ -75,7 +75,7 @@ class Player extends Actor
                 // Boost Management
                 if (boostEnergy < maxBoostEnergy)
                 {
-                    boostEnergy += (25 * _dt);
+                    boostEnergy += 0.5;
                 }
                 if (boostEnergy > maxBoostEnergy)
                 {
@@ -85,11 +85,11 @@ class Player extends Actor
                 // Movement
                 if (Game.input.isKeyDown(Keycodes.key_a))
                 {
-                    angle += (120 * _dt);
+                    angle += 2;
                 }
                 if (Game.input.isKeyDown(Keycodes.key_d))
                 {
-                    angle -= (120 * _dt);
+                    angle -= 2;
                 }
 
                 // Side Shift
@@ -97,11 +97,11 @@ class Player extends Actor
                 {
                     if (Game.input.wasKeyPressed(Keycodes.key_q))
                     {
-                        fsm.fireWith(StartShift, 320);
+                        fsm.fireWith(StartShift, 50);
                     }
                     if (Game.input.wasKeyPressed(Keycodes.key_e))
                     {
-                        fsm.fireWith(StartShift, -320);
+                        fsm.fireWith(StartShift, -50);
                     }
                 }
 
@@ -116,7 +116,7 @@ class Player extends Actor
                     scene.add(
                         new Bullet(
                             vec2(pos) + polarToCartesian(shootingOffset, angle + 90),
-                            polarToCartesian(400, angle)));
+                            polarToCartesian(7, angle)));
 
                     shootingTimer  = 0.25;
                     shootingOffset = -shootingOffset;
@@ -124,7 +124,7 @@ class Player extends Actor
             case Boosting:
                 camera.shake(1);
 
-                boostEnergy -= (50 * _dt);
+                boostEnergy -= 0.9;
 
                 if (Math.floor(boostEnergy) % 5 == 0)
                 {
@@ -136,7 +136,7 @@ class Player extends Actor
                     fsm.fire(EndBoost);
                 }
             case SideShift:
-                pos += polarToCartesian(shiftVel * _dt, angle + 90);
+                pos += polarToCartesian(shiftVel, angle + 90);
 
                 shiftVel *= 0.925;
 
@@ -145,7 +145,7 @@ class Player extends Actor
                     createSmoke();
                 }
 
-                if (Math.abs(shiftVel) < 50)
+                if (Math.abs(shiftVel) < 0.8)
                 {
                     shiftVel = 0;
 
@@ -153,7 +153,7 @@ class Player extends Actor
                 }
         }
 
-        pos += polarToCartesian(160 * boostMultiplier * _dt, angle);
+        pos += getVelocity();
 
         if (pos.x < 0)
         {
@@ -174,8 +174,13 @@ class Player extends Actor
 
         if (shootingTimer > 0)
         {
-            shootingTimer -= _dt;
+            shootingTimer -= (1 / 60);
         }
+    }
+
+    public inline function getVelocity()
+    {
+        return polarToCartesian(2.7 * boostMultiplier, angle);
     }
 
     public function onRender(_ctx : GraphicsContext)

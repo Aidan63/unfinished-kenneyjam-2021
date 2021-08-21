@@ -17,4 +17,8 @@ class Game
     public static var mainThread : IScheduler;
 
     public static var taskPool : IScheduler;
+
+    public static var player : Player;
+
+    public static var enemies : Array<Enemy> = [];
 }

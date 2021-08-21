@@ -1,3 +1,4 @@
+import fsm.StateMachine;
 import VectorMath;
 import uk.aidanlee.flurry.api.gpu.GraphicsContext;
 import uk.aidanlee.flurry.api.maths.Maths;
@@ -5,21 +6,58 @@ import uk.aidanlee.flurry.api.resources.Parcels.Preload;
 import scene.Actor;
 
 using uk.aidanlee.flurry.api.gpu.drawing.Frames;
+using hxrx.schedulers.IScheduler;
 
 class Enemy extends Actor
 {
+    private static final MAX_VELOCITY = 3;
+
+    private static final MAX_FORCE = 0.2;
+
+    private static final MASS = 10;
+
+    final fsm : StateMachine<EnemyState, EnemyTriggers>;
+
+    final evadeRange : Float;
+
+    var vel : Vec2;
+
     var angle : Float;
 
-    public function new(_angle)
-    {
-        super(vec2(Game.display.width / 2, Game.display.height / 2));
+    var canStartSeeking : Bool;
 
-        angle = _angle;
+    public function new(_pos, _angle)
+    {
+        super(_pos);
+
+        fsm             = new StateMachine(Chasing);
+        evadeRange      = 64 + (128 * Math.random());
+        angle           = _angle;
+        vel             = vec2(0);
+        canStartSeeking = false;
+
+        this.fsm
+            .config(Chasing)
+            .permit(PlayerTooClose, Evading);
+
+        this.fsm
+            .config(Evading)
+            .permit(StartChasing, Chasing);
     }
 
 	public function onUpdate(_dt : Float)
     {
-        wander();
+        switch fsm.getCurrentState()
+        {
+            case Wandering:
+                //
+            case Chasing:
+                chase();
+            case Evading:
+                evade();
+        }
+
+        angle = angleBetween(pos, pos + vel);
 
         if (pos.x < 0)
         {
@@ -48,7 +86,39 @@ class Enemy extends Actor
         _ctx.drawFrame(cast Game.resources.get(Preload.img_ship1), pos, vec2(0.5, 0.5), angle);
     }
 
-    function wander()
+    inline function seek(_target : Vec2)
+    {
+        final desired  = (_target - pos).normalize() * vec2(MAX_VELOCITY);
+        final steering = (desired - vel).min(MAX_FORCE) / MASS;
+
+        vel = (vel + steering).min(MAX_VELOCITY);
+        pos += vel;
+
+        // final speed    = 3;
+        // final velocity = polarToCartesian(speed, angle);
+        // final desired  = (_target - pos).normalize() * 1.5;
+        // final steering = desired - velocity;
+
+        // pos += (velocity + steering);
+    }
+
+    inline function flee(_target : Vec2)
+    {
+        final desired  = (pos - _target).normalize() * vec2(MAX_VELOCITY);
+        final steering = (desired - vel).min(MAX_FORCE) / MASS;
+
+        vel = (vel + steering).min(MAX_VELOCITY);
+        pos += vel;
+
+        // final speed    = 3;
+        // final velocity = polarToCartesian(speed, angle);
+        // final desired  = (pos - _target).normalize() * 1.5;
+        // final steering = desired - velocity;
+
+        // pos += (velocity + steering);
+    }
+
+    inline function wander()
     {
         final centre = pos + polarToCartesian(128, angle);
         final offset = randomPointInUnitCircle() * 16;
@@ -58,6 +128,41 @@ class Enemy extends Actor
         pos += polarToCartesian(3, angle);
     }
 
+    inline function chase()
+    {
+        if (distanceBetween(pos, Game.player.pos) < evadeRange)
+        {
+            fsm.fire(PlayerTooClose);
+
+            canStartSeeking = false;
+
+            Game.mainThread.scheduleFunction(1 + Math.random(), () -> canStartSeeking = true);
+        }
+        else
+        {
+            // final distance = distanceBetween(pos, Game.player.pos) / 2;
+            final target   = Game.player.pos + Game.player.getVelocity() * 2;
+    
+            seek(target);
+        }
+    }
+
+    function evade()
+    {
+        if (distanceBetween(pos, Game.player.pos) > 256 && canStartSeeking)
+        {
+            fsm.fire(StartChasing);
+        }
+        else
+        {
+            final distance = distanceBetween(pos, Game.player.pos);
+            final updates  = distance / MAX_VELOCITY;
+            final target   = Game.player.pos + Game.player.getVelocity() * updates;
+    
+            flee(target);
+        }
+    }
+
     public static inline function randomPointInUnitCircle()
     {
         final r = Math.sqrt(Math.random());
@@ -65,4 +170,17 @@ class Enemy extends Actor
 
         return vec2(r * Math.cos(t), r * Math.sin(t));
     }
+}
+
+private enum EnemyState
+{
+    Wandering;
+    Chasing;
+    Evading;
+}
+
+private enum EnemyTriggers
+{
+    PlayerTooClose;
+    StartChasing;
 }
