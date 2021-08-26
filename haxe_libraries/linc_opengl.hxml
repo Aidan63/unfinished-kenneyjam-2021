@@ -1,0 +1,3 @@
+# @install: lix --silent download "gh://github.com/aidan63/linc_opengl#798e17c980683c1e067d22f6c93b08ff0b3f9895" into linc_opengl/0.0.0/github/798e17c980683c1e067d22f6c93b08ff0b3f9895
+-cp ${HAXE_LIBCACHE}/linc_opengl/0.0.0/github/798e17c980683c1e067d22f6c93b08ff0b3f9895/
+-D linc_opengl=0.0.0

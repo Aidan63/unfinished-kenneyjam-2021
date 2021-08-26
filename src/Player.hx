@@ -1,11 +1,11 @@
 import VectorMath;
-import fsm.StateMachine;
 import scene.Actor;
+import fsm.StateMachine;
 import uk.aidanlee.flurry.api.gpu.GraphicsContext;
 import uk.aidanlee.flurry.api.input.Keycodes;
 import uk.aidanlee.flurry.api.maths.Maths;
 import uk.aidanlee.flurry.api.resources.builtin.PageFrameResource;
-import uk.aidanlee.flurry.api.resources.Parcels.Preload;
+import uk.aidanlee.flurry.api.resources.parcels.Preload;
 
 using hxrx.schedulers.IScheduler;
 using uk.aidanlee.flurry.api.gpu.drawing.Frames;
@@ -97,11 +97,11 @@ class Player extends Actor
                 {
                     if (Game.input.wasKeyPressed(Keycodes.key_q))
                     {
-                        fsm.fireWith(StartShift, 50);
+                        fsm.fireWith(StartShift, 10);
                     }
                     if (Game.input.wasKeyPressed(Keycodes.key_e))
                     {
-                        fsm.fireWith(StartShift, -50);
+                        fsm.fireWith(StartShift, -10);
                     }
                 }
 

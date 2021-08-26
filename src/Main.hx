@@ -1,22 +1,12 @@
-import scene.Scene;
 import VectorMath;
-import haxe.io.Bytes;
-import haxe.ds.Vector;
-import haxe.io.ArrayBufferView;
+import scene.Scene;
 import uk.aidanlee.flurry.Flurry;
 import uk.aidanlee.flurry.FlurryConfig;
-import uk.aidanlee.flurry.api.gpu.Colour;
 import uk.aidanlee.flurry.api.gpu.ShaderID;
-import uk.aidanlee.flurry.api.gpu.SurfaceID;
 import uk.aidanlee.flurry.api.gpu.GraphicsContext;
 import uk.aidanlee.flurry.api.gpu.camera.Camera2D;
 import uk.aidanlee.flurry.api.gpu.pipeline.PipelineID;
-import uk.aidanlee.flurry.api.gpu.geometry.UniformBlob;
-import uk.aidanlee.flurry.api.maths.Maths;
-import uk.aidanlee.flurry.api.input.Keycodes;
-import uk.aidanlee.flurry.api.resources.Parcels.Preload;
-import uk.aidanlee.flurry.api.resources.ResourceID;
-import uk.aidanlee.flurry.api.resources.builtin.PageFrameResource;
+import uk.aidanlee.flurry.api.resources.parcels.Preload;
 
 using uk.aidanlee.flurry.api.gpu.drawing.Frames;
 
@@ -36,7 +26,7 @@ class Main extends Flurry
 
     override function onConfig(_config : FlurryConfig) : FlurryConfig
     {
-        _config.window.title  = 'Demo';
+        _config.window.title  = 'Jam';
         _config.window.width  = 768;
         _config.window.height = 512;
 
@@ -67,8 +57,6 @@ class Main extends Flurry
             final actor = new Enemy(vec2(x, y), Math.random() * 360);
 
             scene.add(actor);
-
-            Game.enemies.push(actor);
         }
     }
 

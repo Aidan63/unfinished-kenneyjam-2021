@@ -1,0 +1,19 @@
+{
+    "app" : {
+        "name"      : "Steering",
+        "main"      : "Steering",
+        "output"    : "bin",
+        "codepaths" : [ "src" ],
+        "author"    : "Aidan Lee",
+        "backend"   : "Sdl"
+    },
+    "build" : {
+        "defines" : [
+            { "def" : "analyzer-optimize" }
+        ],
+        "dependencies" : [
+            "flurry"
+        ]
+    },
+    "parcels" : [ "assets/assets.json" ]
+}

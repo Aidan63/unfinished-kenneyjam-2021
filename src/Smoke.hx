@@ -1,5 +1,5 @@
-import scene.Actor;
 import VectorMath;
+import scene.Actor;
 import uk.aidanlee.flurry.api.gpu.GraphicsContext;
 import uk.aidanlee.flurry.api.resources.builtin.PageFrameResource;
 

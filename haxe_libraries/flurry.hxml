@@ -1,10 +1,11 @@
-# @run: haxelib run-dir hxcpp D:/projects/flurry/flurry
--D format=3.5.0
--cp D:/projects/flurry/flurry/src/lib
+# @install: lix --silent download "gh://github.com/aidan63/flurry#61a3c4eb8b0ce9a60cd385e9c57ff914bc585ad4" into flurry/0.0.1/github/61a3c4eb8b0ce9a60cd385e9c57ff914bc585ad4
+# @run: haxelib run-dir flurry ${HAXE_LIBCACHE}/flurry/0.0.1/github/61a3c4eb8b0ce9a60cd385e9c57ff914bc585ad4
+-D flurry=0.0.1
+-cp ${HAXE_LIBCACHE}/flurry/0.0.1/github/61a3c4eb8b0ce9a60cd385e9c57ff914bc585ad4/src/lib
 --lib hxrx
---lib format
 --lib haxe-concurrent
 --lib linc_directx
+--lib linc_opengl
 --lib linc_imgui
 --lib haxe-files
 --lib linc_stb

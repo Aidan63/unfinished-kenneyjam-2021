@@ -2,7 +2,7 @@ import VectorMath;
 import scene.Actor;
 import uk.aidanlee.flurry.api.maths.Maths;
 import uk.aidanlee.flurry.api.gpu.GraphicsContext;
-import uk.aidanlee.flurry.api.resources.Parcels.Preload;
+import uk.aidanlee.flurry.api.resources.parcels.Preload;
 import uk.aidanlee.flurry.api.resources.builtin.PageFrameResource;
 
 using uk.aidanlee.flurry.api.gpu.drawing.Frames;

@@ -1,9 +1,9 @@
-import fsm.StateMachine;
 import VectorMath;
+import fsm.StateMachine;
+import scene.Actor;
 import uk.aidanlee.flurry.api.gpu.GraphicsContext;
 import uk.aidanlee.flurry.api.maths.Maths;
-import uk.aidanlee.flurry.api.resources.Parcels.Preload;
-import scene.Actor;
+import uk.aidanlee.flurry.api.resources.parcels.Preload;
 
 using uk.aidanlee.flurry.api.gpu.drawing.Frames;
 using hxrx.schedulers.IScheduler;

@@ -1,6 +1,7 @@
 {
     "assets" : [
         { "id" : "shd_basic", "path" : "shaders/basic.glsl" },
+        { "id" : "shd_shapes", "path" : "shaders/shapes.glsl" },
 
         { "id" : "img_background", "path" : "images/background.png" },
         { "id" : "img_ship0", "path" : "images/ship0.png" },
@@ -13,6 +14,6 @@
         { "id" : "ui_panel", "path" : "images/ui_panel.png" }
     ],
     "parcels" : [
-        { "name" : "preload", "assets" : [ "shd_basic", "img_ship0", "img_ship1", "img_smoke", "img_background", "ui_bar_outline", "ui_bar", "ui_panel", "img_bullet1" ] }
+        { "name" : "preload", "assets" : [ "shd_basic", "shd_shapes", "img_ship0", "img_ship1", "img_smoke", "img_background", "ui_bar_outline", "ui_bar", "ui_panel", "img_bullet1" ] }
     ]
 }
